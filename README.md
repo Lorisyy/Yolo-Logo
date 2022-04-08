@@ -1,5 +1,5 @@
 # Yolo-Logo
-⚠️ This repo is under building now and soon be available, thanks to professor Pingzhao Hu, please feel free to contact me.  
+⚠️ This repo is under building now and soon be available, please feel free to contact me.  
 😊 Thanks to professor Hu and my collaborators (Qian and Wentao) for their great help in this work.
 
 ## Paper
