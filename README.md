@@ -9,10 +9,10 @@ YOLO-LOGO: A transformer-based YOLO segmentation model for breast mass detection
 
 ## Content
 
-### Introduction
+### [Introduction](https://github.com/Lorisyy/Yolo-Logo/tree/main/Introduction)
 
-### Preprocessing
+### [Preprocessing](https://github.com/Lorisyy/Yolo-Logo/tree/main/Preprocessing)
 
-### Mass Detection
+### [Mass Detection](https://github.com/Lorisyy/Yolo-Logo/tree/main/MassDetection)
 
-### Mass Segementation
+### [Mass Segementation](https://github.com/Lorisyy/Yolo-Logo/tree/main/MassSegementation)
