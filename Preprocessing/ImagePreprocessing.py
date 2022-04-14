@@ -8,15 +8,7 @@ from pathlib import Path
 from logs import logDecorator as lD
 
 
-# import skimage
-
-# ----------------------------------
-
-config = jsonref.load(open("../config/config.json"))
-logBase = (
-    config["logging"]["logBase"] + ".modules.imagePreprocessing.imagePreprocessing"
-)
-config_imgPre = jsonref.load(open("../config/modules/imagePreprocessing.json"))
+import skimage
 
 
 @lD.log(logBase + ".cropBorders")
