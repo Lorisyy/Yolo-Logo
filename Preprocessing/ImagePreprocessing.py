@@ -1,17 +1,10 @@
 import os
 import pprint
-import jsonref
 import numpy as np
 import cv2
 import pydicom
 from pathlib import Path
-from logs import logDecorator as lD
 
-
-import skimage
-
-
-@lD.log(logBase + ".cropBorders")
 def cropBorders(logger, img, l=0.01, r=0.01, u=0.04, d=0.04):
 
     """
@@ -46,7 +39,6 @@ def cropBorders(logger, img, l=0.01, r=0.01, u=0.04, d=0.04):
     return cropped_img
 
 
-@lD.log(logBase + ".minMaxNormalise")
 def minMaxNormalise(logger, img):
 
     """
@@ -72,7 +64,6 @@ def minMaxNormalise(logger, img):
     return norm_img
 
 
-@lD.log(logBase + ".globalBinarise")
 def globalBinarise(logger, img, thresh, maxval):
 
     """
@@ -108,7 +99,6 @@ def globalBinarise(logger, img, thresh, maxval):
     return binarised_img
 
 
-@lD.log(logBase + ".editMask")
 def editMask(logger, mask, ksize=(23, 23), operation="open"):
 
     """
@@ -148,7 +138,6 @@ def editMask(logger, mask, ksize=(23, 23), operation="open"):
     return edited_mask
 
 
-@lD.log(logBase + ".sortContoursByArea")
 def sortContoursByArea(logger, contours, reverse=True):
 
     """
@@ -184,7 +173,6 @@ def sortContoursByArea(logger, contours, reverse=True):
     return sorted_contours, bounding_boxes
 
 
-@lD.log(logBase + ".xLargestBlobs")
 def xLargestBlobs(logger, mask, top_x=None, reverse=True):
 
     """
@@ -249,7 +237,6 @@ def xLargestBlobs(logger, mask, top_x=None, reverse=True):
     return n_contours, X_largest_blobs
 
 
-@lD.log(logBase + ".applyMask")
 def applyMask(logger, img, mask):
 
     """
@@ -279,7 +266,6 @@ def applyMask(logger, img, mask):
     return masked_img
 
 
-@lD.log(logBase + ".checkLRFlip")
 def checkLRFlip(logger, mask):
 
     """
@@ -324,7 +310,6 @@ def checkLRFlip(logger, mask):
     return LR_flip
 
 
-@lD.log(logBase + ".makeLRFlip")
 def makeLRFlip(logger, img):
 
     """
@@ -348,7 +333,6 @@ def makeLRFlip(logger, img):
     return flipped_img
 
 
-@lD.log(logBase + ".clahe")
 def clahe(logger, img, clip=2.0, tile=(8, 8)):
 
     """
@@ -397,7 +381,6 @@ def clahe(logger, img, clip=2.0, tile=(8, 8)):
     return clahe_img
 
 
-@lD.log(logBase + ".pad")
 def pad(logger, img):
 
     """
@@ -450,7 +433,6 @@ def pad(logger, img):
     return padded_img
 
 
-@lD.log(logBase + ".fullMammoPreprocess")
 def fullMammoPreprocess(
     logger,
     img,
@@ -551,7 +533,6 @@ def fullMammoPreprocess(
     return img_pre, lr_flip
 
 
-@lD.log(logBase + ".maskPreprocess")
 def maskPreprocess(logger, mask, lr_flip):
 
     """
@@ -592,7 +573,6 @@ def maskPreprocess(logger, mask, lr_flip):
 # ----------------------------------
 
 
-@lD.log(logBase + ".main")
 def main(logger, resultsDict):
     """main function for imagePreprocessing module.
     This function takes a path of the raw image folder,
@@ -618,14 +598,6 @@ def main(logger, resultsDict):
     print("=" * 30)
     print("We get a copy of the result dictionary over here ...")
     pprint.pprint(resultsDict)
-
-    # Get path of the folder containing .dcm files.
-    input_path = config_imgPre["paths"]["input"]
-    output_full_path = config_imgPre["paths"]["output_full"]
-    output_mask_path = config_imgPre["paths"]["output_mask"]
-
-    # Output format.
-    output_format = config_imgPre["output_format"]
 
     # Get individual .dcm paths.
     dcm_paths = []
@@ -659,20 +631,6 @@ def main(logger, resultsDict):
         # =========================
         # Preprocess Full Mammogram
         # =========================
-
-        # Get all hyperparameters.
-        l = config_imgPre["cropBorders"]["l"]
-        r = config_imgPre["cropBorders"]["r"]
-        u = config_imgPre["cropBorders"]["u"]
-        d = config_imgPre["cropBorders"]["d"]
-        thresh = config_imgPre["globalBinarise"]["thresh"]
-        maxval = config_imgPre["globalBinarise"]["maxval"]
-        ksize = config_imgPre["editMask"]["ksize"]
-        operation = config_imgPre["editMask"]["operation"]
-        reverse = config_imgPre["sortContourByArea"]["reverse"]
-        top_x = config_imgPre["xLargestBlobs"]["top_x"]
-        clip = config_imgPre["clahe"]["clip"]
-        tile = config_imgPre["clahe"]["tile"]
 
         # Preprocess full mammogram images.
         fullmamm_pre, lr_flip = fullMammoPreprocess(
